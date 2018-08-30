@@ -52,7 +52,7 @@ equality graph E with respect to labeling l, then M is a max-weight matching.
    
    - Let l'(v) = l(v), otherwise.
    
-### EE 382V Social Computing - Assignment 1 - #4
+## EE 382V Social Computing - Assignment 1 - #4
 
 ```
 4. (35 points) This question requires you to implement weighted bipartite matching using Kuhn-Munkres
