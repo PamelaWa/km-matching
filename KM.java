@@ -82,10 +82,7 @@ public class KM {
 			yMatching[x] = -1;
 			int maxEdgeWeight = 0;
 			for (int y = 0; y < size; y++) {
-				int edgeWeight = w[x][y];
-				if (edgeWeight > maxEdgeWeight) {
-					maxEdgeWeight = edgeWeight;
-				}
+				maxEdgeWeight = Math.max(w[x][y], maxEdgeWeight);
 			}
 			xLabels[x] = maxEdgeWeight;
 			yLabels[x] = 0;
