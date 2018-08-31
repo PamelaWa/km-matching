@@ -8,23 +8,23 @@ import java.util.Scanner;
 
 public class KM {
 	
-	static int size;	// size of the square matrix = num of cols = num of rows
-	static int[][] w;	// weight of edges (x,y)
+	private static int size;	// size of the square matrix = num of cols = num of rows
+	private static int[][] w;	// weight of edges (x,y)
 	
-	static HashSet<Integer> X;	// all nodes in X partition
-	static HashSet<Integer> Y;	// all nodes in Y partition
+	private static HashSet<Integer> X;	// all nodes in X partition
+	private static HashSet<Integer> Y;	// all nodes in Y partition
 	
-	static HashSet<Integer> freeX;	// set of free x nodes
-	static HashSet<Integer> freeY;	// set of free y nodes
+	private static HashSet<Integer> freeX;	// set of free x nodes
+	private static HashSet<Integer> freeY;	// set of free y nodes
 	
-	static int[] xMatching;  	// mapping of (x,y) edges in matching, xMatching[x] == y
-	static int[] yMatching;  	// mapping of (x,y) edges in matching, yMatching[y] == x
+	private static int[] xMatching;  	// mapping of (x,y) edges in matching, xMatching[x] == y
+	private static int[] yMatching;  	// mapping of (x,y) edges in matching, yMatching[y] == x
 	
-	static int[] xLabels;  		// labels for x nodes
-	static int[] yLabels;  		// labels for y nodes
+	private static int[] xLabels;  		// labels for x nodes
+	private static int[] yLabels;  		// labels for y nodes
 	
-	static HashSet<Integer> S;	// working set of x nodes in alternating tree
-	static HashSet<Integer> T;	// working set of y nodes in alternating tree	
+	private static HashSet<Integer> S;	// working set of x nodes in alternating tree
+	private static HashSet<Integer> T;	// working set of y nodes in alternating tree	
 
 	// Takes in an input file containing a square matrix and size representing
 	// a weighted bipartite graph. Using the Kuhn-Munkres algorithm, finds the
@@ -62,7 +62,7 @@ public class KM {
 	}
 	
 	// initialize variables for KM algorithm
-	public static void init() {
+	private static void init() {
 		X = new HashSet<>();
 		Y = new HashSet<>();
 		S = new HashSet<>();
@@ -94,7 +94,7 @@ public class KM {
 	
 	// attempt to find augmenting path and augment M, may have
 	// to update labels along the way
-	public static void augmentMatching() {
+	private static void augmentMatching() {
 		while (true) {
 			// 3. If N(S) = T, update labels
 			HashSet<Integer> N = getNofS();
@@ -128,7 +128,7 @@ public class KM {
 	
 	// from the built augmenting tree, flip the
 	// augmenting path to increase size of matching
-	public static void flipAugmentingTree(int y) {
+	private static void flipAugmentingTree(int y) {
 		int x = getParentOfY(y);
 		if (!freeX.contains(x)) {
 			flipAugmentingTree(xMatching[x]);
@@ -141,7 +141,7 @@ public class KM {
 	
 	// given node y in augmenting tree, find parent x
 	// on its tight edge that isn't currently matched to it
-	public static int getParentOfY(int y) {
+	private static int getParentOfY(int y) {
 		for (int x : S) {
 			if (isEdgeTight(x,y) && xMatching[x] != y) {
 				return x;
@@ -152,7 +152,7 @@ public class KM {
 
 	// improve the node labelling in order to increase
 	// tight edges in the equality graph
-	public static void updateLabels() {
+	private static void updateLabels() {
 		// let alpha = min{ l(x) + l(y) - w(x,y) }, for all x in S and y not in T
 		int alpha = Integer.MAX_VALUE;
 		for (int x : S) {
@@ -176,7 +176,7 @@ public class KM {
 	}
 	
 	// get the neighbor set of set S
-	public static HashSet<Integer> getNofS() {
+	private static HashSet<Integer> getNofS() {
 		HashSet<Integer> N = new HashSet<>();
 		for (int x : S) {
 			for (int y = 0; y < size; y++) {
@@ -189,17 +189,17 @@ public class KM {
 	}
 	
 	// returns true if given edge is tight, false if not
-	public static boolean isEdgeTight(int x, int y) {
+	private static boolean isEdgeTight(int x, int y) {
 		return (getSlack(x, y) == 0);
 	}
 	
 	// returns the calculated slack for the given edge
-	public static int getSlack(int x, int y) {
+	private static int getSlack(int x, int y) {
 		return (xLabels[x] + yLabels[y]) - w[x][y];
 	}
 	
 	// return the size of the current matching
-	public static int getMatchingSize() {
+	private static int getMatchingSize() {
 		int mSize = 0;
 		for (int i = 0; i < size; i++) {
 			if (xMatching[i] != -1) {
@@ -210,12 +210,12 @@ public class KM {
 	}
 	
 	// returns true if current matching is perfect, false if not
-	public static boolean isMatchingPerfect() {
+	private static boolean isMatchingPerfect() {
 		return (getMatchingSize() == size);
 	}
 	
 	// returns the weight of the current matching
-	public static int getMatchingWeight() {
+	private static int getMatchingWeight() {
 		int weight = 0;
 		for (int i = 0; i < size; i++) {
 			if (xMatching[i] != -1) {
@@ -226,7 +226,7 @@ public class KM {
 	}
 	
 	// gets a free x node from X
-	public static int getFreeX() {
+	private static int getFreeX() {
 		for (int x : freeX) {
 			return x;
 		}
@@ -235,7 +235,7 @@ public class KM {
 	
 	// prints the weight of the matching followed by a sorted
 	// list of the edges in the matching
-	public static void printMatching() {
+	private static void printMatching() {
 		System.out.println(getMatchingWeight());
 		for (int i = 0; i < size; i++) {
 			System.out.println("(" + (i+1) + "," + (xMatching[i]+1) + ")");
@@ -244,7 +244,7 @@ public class KM {
 
 	// parse given input file
 	// returns true if success, or false if parsing fails
-	public static boolean parseInput(String inputFile) {
+	private static boolean parseInput(String inputFile) {
 		// create file scanner object
 		Scanner scanner;
 		try {
@@ -277,7 +277,7 @@ public class KM {
 
 	// parse input file to retrieve matrix size
 	// returns size, or -1 if parsing fails
-	public static int parseSize(Scanner scanner) {
+	private static int parseSize(Scanner scanner) {
 		if (scanner.hasNextInt()) {
 			return scanner.nextInt();
 		} else {
@@ -287,7 +287,7 @@ public class KM {
 
 	// parse input file to retrieve square matrix
 	// returns matrix, or null if parsing fails
-	public static int[][] parseMatrix(Scanner scanner, int size) {
+	private static int[][] parseMatrix(Scanner scanner, int size) {
 		int[][] matrix = new int[size][size];
 		for (int rowIndex = 0; rowIndex < size; rowIndex++) {
 			for (int colIndex = 0; colIndex < size; colIndex++) {
