@@ -43,6 +43,8 @@ public class KM {
 			return;
 		}
 		
+		long startTime=System.nanoTime();
+		
 		// 1. generate initial labeling l and matching M in equality graph E
 		init();
 				
@@ -59,6 +61,10 @@ public class KM {
 				
 		// print weight of matching followed by a sorted list of edges in the matching
 		printMatching();
+		
+		long endTime=System.nanoTime();
+		long totalTime=endTime-startTime;
+		System.out.println("Total time taken for KM is "+totalTime);
 	}
 	
 	// initialize variables for KM algorithm
