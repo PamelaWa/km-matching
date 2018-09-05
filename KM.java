@@ -11,7 +11,7 @@ public class KM {
 	private static int size;	// size of the square matrix = num of cols = num of rows
 	private static int[][] w;	// weight of edges (x,y)
 	
-	private static HashSet<Integer> X;	// all nodes in X partition
+	//private static HashSet<Integer> X;	// all nodes in X partition
 	private static HashSet<Integer> Y;	// all nodes in Y partition
 	
 	private static HashSet<Integer> freeX;	// set of free x nodes
@@ -69,7 +69,7 @@ public class KM {
 	
 	// initialize variables for KM algorithm
 	private static void init() {
-		X = new HashSet<>();
+		//X = new HashSet<>();
 		Y = new HashSet<>();
 		S = new HashSet<>();
 		T = new HashSet<>();
@@ -80,7 +80,7 @@ public class KM {
 		xLabels = new int[size];
 		yLabels = new int[size];
 		for (int x = 0; x < size; x++) {
-			X.add(x);
+			//X.add(x);
 			Y.add(x);
 			freeX.add(x);
 			freeY.add(x);
