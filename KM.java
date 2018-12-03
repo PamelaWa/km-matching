@@ -1,4 +1,7 @@
-// Bryson Banks
+/***********************************
+ * Copyright (c) 2018 Bryson J. Banks.
+ * All rights reserved.
+ **********************************/
 
 import java.io.File;
 import java.io.FileNotFoundException;
